@@ -1,0 +1,62 @@
+CREATE DATABASE recetas;
+
+USE recetas;
+
+CREATE TABLE recetas (
+	id INT AUTO_INCREMENT,
+    imagen VARCHAR(255),
+    autor VARCHAR(255),
+    nombre VARCHAR(255),
+    likes INT,
+    descripcion TEXT,
+    receta TEXT,
+    CONSTRAINT pk_recetas PRIMARY KEY(id)
+);
+
+CREATE TABLE comentarios (
+    id INT AUTO_INCREMENT,
+    id_receta INT,
+    comentario TEXT,
+    FOREIGN KEY (id_receta) REFERENCES recetas(id),
+    CONSTRAINT pk_comentarios PRIMARY KEY(id)
+);
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT,
+    imagen VARCHAR(255),
+    nombre VARCHAR(255),
+    apellidos VARCHAR(255),
+    passwd VARCHAR(255),
+    nick VARCHAR(255),
+    correo VARCHAR(255),
+    CONSTRAINT pk_usuarios PRIMARY KEY(id)
+);
+
+CREATE TABLE favoritos (
+    id INT AUTO_INCREMENT,
+    id_usuario INT,
+    id_receta INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_receta) REFERENCES recetas(id),
+    CONSTRAINT pk_favoritos PRIMARY KEY(id)
+);
+
+CREATE TABLE amistades (
+    id INT AUTO_INCREMENT,
+    id_usuario1 INT,
+    id_usuario2 INT,
+    FOREIGN KEY (id_usuario1) REFERENCES usuarios(id),
+    FOREIGN KEY (id_usuario2) REFERENCES usuarios(id),
+    CONSTRAINT pk_amistades PRIMARY KEY(id)
+);
+
+CREATE TABLE mensajes (
+    id INT AUTO_INCREMENT,
+    id_usuario1 INT,
+    id_usuario2 INT,
+    escribio INT,
+    mensaje TEXT,
+    FOREIGN KEY (id_usuario1) REFERENCES usuarios(id),
+    FOREIGN KEY (id_usuario2) REFERENCES usuarios(id),
+    CONSTRAINT pk_mensajes PRIMARY KEY(id)
+);
