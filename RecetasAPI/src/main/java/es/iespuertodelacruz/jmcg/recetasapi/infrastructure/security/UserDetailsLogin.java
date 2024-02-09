@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.jmcg.recetasapi.security;
+package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.security;
 
 import java.util.ArrayList;
 import java.util.Collection;

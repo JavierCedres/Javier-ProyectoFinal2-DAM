@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.jmcg.recetasapi.security;
+package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.security;
 
 import java.io.IOException;
 import java.util.ArrayList;

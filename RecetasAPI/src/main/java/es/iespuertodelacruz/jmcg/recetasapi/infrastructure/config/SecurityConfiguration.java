@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.jmcg.recetasapi.config;
+package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import es.iespuertodelacruz.jmcg.matriculas.security.JwtFilter;
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.security.JwtFilter;
 
 @Configuration
 @EnableWebSecurity

@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.jmcg.recetasapi.security;
+package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.jmcg.recetasapi.config;
+package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,19 +11,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import es.iespuertodelacruz.jmcg.matriculas.entity.Usuario;
-import es.iespuertodelacruz.jmcg.matriculas.security.UserDetailsLogin;
-import es.iespuertodelacruz.jmcg.matriculas.service.UsuarioService;
+import es.iespuertodelacruz.jmcg.recetasapi.domain.service.UsuarioDomainService;
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.UsuarioEntity;
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.security.UserDetailsLogin;
+
 
 @Configuration
 public class ApplicationConfig {
 	@Autowired
-	private UsuarioService repository;
+	private UsuarioDomainService repository;
 
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return username -> {
-			Usuario entity = repository.findByName(username);
+			UsuarioEntity entity = repository.findByName(username);
 			UserDetailsLogin user = new UserDetailsLogin();
 			user.setUsername(entity.getNombre());
 			user.setPassword(entity.getPassword());

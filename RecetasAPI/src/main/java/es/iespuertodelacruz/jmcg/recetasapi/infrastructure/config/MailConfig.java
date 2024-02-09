@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.jmcg.recetasapi.config;
+package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.config;
 
 import java.util.Properties;
 
