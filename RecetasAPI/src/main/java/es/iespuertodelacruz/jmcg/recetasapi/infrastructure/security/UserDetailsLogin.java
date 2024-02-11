@@ -8,8 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class UserDetailsLogin implements UserDetails {
 	public UserDetailsLogin() {
 	}
@@ -18,6 +16,33 @@ public class UserDetailsLogin implements UserDetails {
 	String password;
 	String role;
 	String email;
+	String apellidos;
+	String imagen;
+	String nick;
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -27,7 +52,6 @@ public class UserDetailsLogin implements UserDetails {
 		this.password = password;
 	}
 
-	@JsonIgnore
 	public String getRole() {
 		return role;
 	}
@@ -37,7 +61,6 @@ public class UserDetailsLogin implements UserDetails {
 	}
 
 	@Override
-	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(role));
@@ -63,24 +86,20 @@ public class UserDetailsLogin implements UserDetails {
 	}
 
 	@Override
-	@JsonIgnore
 	public boolean isAccountNonExpired() {
 		return false;
 	}
-
-	@JsonIgnore
+	
 	@Override
 	public boolean isAccountNonLocked() {
 		return false;
 	}
-
-	@JsonIgnore
+	
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return false;
 	}
-
-	@JsonIgnore
+	
 	@Override
 	public boolean isEnabled() {
 		return false;

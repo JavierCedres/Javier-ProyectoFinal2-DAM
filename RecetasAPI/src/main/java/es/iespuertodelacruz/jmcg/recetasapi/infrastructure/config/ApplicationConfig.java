@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.service.UsuarioDomainService;
-import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.UsuarioEntity;
 import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.security.UserDetailsLogin;
 
 
@@ -24,7 +24,7 @@ public class ApplicationConfig {
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return username -> {
-			UsuarioEntity entity = repository.findByName(username);
+			Usuario entity = repository.findByName(username);
 			UserDetailsLogin user = new UserDetailsLogin();
 			user.setUsername(entity.getNombre());
 			user.setPassword(entity.getPassword());

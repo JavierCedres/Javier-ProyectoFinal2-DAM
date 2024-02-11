@@ -15,7 +15,7 @@ public class DatabaseConfig {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/matriculas?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/recetas?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
 		dataSource.setUsername("root");
 		dataSource.setPassword("1q2w3e4r");
 		return (DataSource) dataSource;
@@ -26,7 +26,7 @@ public class DatabaseConfig {
 	public DataSource dataSourceTest() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.h2.Driver");
-		dataSource.setUrl("jdbc:h2:file:/tmp/matriculastest;DB_CLOSE_DELAY=-1");
+		dataSource.setUrl("jdbc:h2:file:/tmp/recetastest;DB_CLOSE_DELAY=-1");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("");
 		return dataSource;

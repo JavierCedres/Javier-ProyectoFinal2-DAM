@@ -1,7 +1,12 @@
-package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary;
+package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.entity.usuario;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.entity.receta.RecetaEntity;
 
 
 /**
@@ -10,13 +15,13 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name="usuarios")
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+@NamedQuery(name="Usuario.findAll", query="SELECT u FROM UsuarioEntity u")
 public class UsuarioEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	private int active;
 
@@ -36,14 +41,23 @@ public class UsuarioEntity implements Serializable {
 
 	private String rol;
 
+	//bi-directional many-to-one association to Receta
+	@OneToMany(mappedBy="usuario")
+	private List<RecetaEntity> recetas1;
+
+	//bi-directional many-to-many association to Receta
+	@ManyToMany(mappedBy="usuarios")
+	@JsonIgnore
+	private List<RecetaEntity> recetas2;
+
 	public UsuarioEntity() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -117,6 +131,36 @@ public class UsuarioEntity implements Serializable {
 
 	public void setRol(String rol) {
 		this.rol = rol;
+	}
+
+	public List<RecetaEntity> getRecetas1() {
+		return this.recetas1;
+	}
+
+	public void setRecetas1(List<RecetaEntity> recetas1) {
+		this.recetas1 = recetas1;
+	}
+
+	public RecetaEntity addRecetas1(RecetaEntity recetas1) {
+		getRecetas1().add(recetas1);
+		recetas1.setUsuario(this);
+
+		return recetas1;
+	}
+
+	public RecetaEntity removeRecetas1(RecetaEntity recetas1) {
+		getRecetas1().remove(recetas1);
+		recetas1.setUsuario(null);
+
+		return recetas1;
+	}
+
+	public List<RecetaEntity> getRecetas2() {
+		return this.recetas2;
+	}
+
+	public void setRecetas2(List<RecetaEntity> recetas2) {
+		this.recetas2 = recetas2;
 	}
 
 }
