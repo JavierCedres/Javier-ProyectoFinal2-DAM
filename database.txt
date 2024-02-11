@@ -4,81 +4,89 @@ USE recetas;
 
 DROP TABLE IF EXISTS favoritos;
 DROP TABLE IF EXISTS amistades;
-DROP TABLE IF EXISTS conversaciones;
 DROP TABLE IF EXISTS mensajes;
+DROP TABLE IF EXISTS conversaciones;
 DROP TABLE IF EXISTS comentarios;
 DROP TABLE IF EXISTS recetas;
 DROP TABLE IF EXISTS usuarios;
 
-CREATE TABLE usuarios (
-    id INT AUTO_INCREMENT,
-    imagen VARCHAR(255),
-    nombre VARCHAR(255),
-    apellidos VARCHAR(255),
-    passwd VARCHAR(255),
-    nick VARCHAR(255),
-    correo VARCHAR(255),
-    CONSTRAINT pk_usuarios PRIMARY KEY(id)
+CREATE TABLE `usuarios` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR(60) NOT NULL,
+    	`apellidos` VARCHAR(60) NOT NULL,
+    	`nick` VARCHAR(255) NOT NULL,
+	`password` VARCHAR(200) NOT NULL,
+	`rol` VARCHAR(60) NOT NULL,
+	`email` VARCHAR (60) NOT NULL,
+    	`imagen` VARCHAR(255),
+	`active` INT DEFAULT 0,
+	`hash` VARCHAR(255) NOT NULL,
+	constraint pk_usuarios PRIMARY KEY(id),
+	constraint uk_nombre UNIQUE KEY(nombre),
+    	constraint uk_email UNIQUE KEY(email)
 );
 
 CREATE TABLE recetas (
 	id INT AUTO_INCREMENT,
-    id_usuario INT,
-    imagen VARCHAR(255),
-    autor VARCHAR(255),
-    nombre VARCHAR(255),
-    likes INT,
-    descripcion TEXT,
-    receta TEXT,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    CONSTRAINT pk_recetas PRIMARY KEY(id)
+	id_usuario INT,
+    	imagen VARCHAR(255),
+  	autor VARCHAR(255),
+    	nombre VARCHAR(255),
+    	likes INT,
+    	descripcion TEXT,
+    	receta TEXT,
+    	fechadecreacion BIGINT,
+    	FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    	CONSTRAINT pk_recetas PRIMARY KEY(id)
 );
 
 CREATE TABLE comentarios (
-    id INT AUTO_INCREMENT,
-    id_receta INT,
-    id_usuario INT,
-    comentario TEXT,
-    FOREIGN KEY (id_receta) REFERENCES recetas(id),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    CONSTRAINT pk_comentarios PRIMARY KEY(id)
+    	id INT AUTO_INCREMENT,
+    	id_receta INT,
+    	id_usuario INT,
+    	comentario TEXT,
+   	fechadecreacion BIGINT,
+    	FOREIGN KEY (id_receta) REFERENCES recetas(id),
+    	FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    	CONSTRAINT pk_comentarios PRIMARY KEY(id)
 );
 
 CREATE TABLE favoritos (
 	id INT AUTO_INCREMENT,
-    id_usuario INT,
-    id_receta INT,
-    CONSTRAINT pk_favoritos PRIMARY KEY(id),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_receta) REFERENCES recetas(id)
+    	id_usuario INT,
+    	id_receta INT,
+    	CONSTRAINT pk_favoritos PRIMARY KEY(id),
+    	FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    	FOREIGN KEY (id_receta) REFERENCES recetas(id)
 );
 
 CREATE TABLE amistades (
 	id INT AUTO_INCREMENT,
-    id_usuario1 INT,
-    id_usuario2 INT,
-    CONSTRAINT pk_amistades PRIMARY KEY(id),
-    FOREIGN KEY (id_usuario1) REFERENCES usuarios(id),
-    FOREIGN KEY (id_usuario2) REFERENCES usuarios(id)
+    	id_usuario1 INT,
+    	id_usuario2 INT,
+    	CONSTRAINT pk_amistades PRIMARY KEY(id),
+    	FOREIGN KEY (id_usuario1) REFERENCES usuarios(id),
+    	FOREIGN KEY (id_usuario2) REFERENCES usuarios(id)
 );
 
 CREATE TABLE conversaciones (
 	id INT AUTO_INCREMENT,
-    id_usuario1 INT,
-    id_usuario2 INT,
-    CONSTRAINT pk_conversaciones PRIMARY KEY(id),
-    FOREIGN KEY (id_usuario1) REFERENCES usuarios(id),
-    FOREIGN KEY (id_usuario2) REFERENCES usuarios(id)
+    	id_usuario1 INT,
+    	id_usuario2 INT,
+    	CONSTRAINT pk_conversaciones PRIMARY KEY(id),
+    	FOREIGN KEY (id_usuario1) REFERENCES usuarios(id),
+    	FOREIGN KEY (id_usuario2) REFERENCES usuarios(id)
 );
 
 CREATE TABLE mensajes (
 	id INT AUTO_INCREMENT,
-    id_conversacion INT,
-    id_usuario INT,
-    mensaje TEXT,
-    CONSTRAINT pk_mensajes PRIMARY KEY(id),
-    FOREIGN KEY (id_conversacion) REFERENCES conversaciones(id),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+    	id_conversacion INT,
+    	id_usuario INT,
+    	mensaje TEXT,
+    	fechadecreacion BIGINT,
+    	CONSTRAINT pk_mensajes PRIMARY KEY(id),
+    	FOREIGN KEY (id_conversacion) REFERENCES conversaciones(id),
+    	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
 
