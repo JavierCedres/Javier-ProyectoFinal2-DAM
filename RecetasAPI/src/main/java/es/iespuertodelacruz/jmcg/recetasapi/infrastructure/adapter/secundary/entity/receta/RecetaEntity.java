@@ -14,7 +14,7 @@ import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.ent
  */
 @Entity
 @Table(name="recetas")
-@NamedQuery(name="RecetaEntity.findAll", query="SELECT r FROM RecetaEntity r")
+@NamedQuery(name="Receta.findAll", query="SELECT r FROM RecetaEntity r")
 public class RecetaEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,24 +22,17 @@ public class RecetaEntity implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	private String autor;
-
-	private Object descripcion;
+	private String descripcion;
 
 	private BigInteger fechadecreacion;
 
 	private String imagen;
 
-	private Integer likes;
+	private int likes;
 
 	private String nombre;
 
-	private Object receta;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="id_usuario")
-	private UsuarioEntity usuario;
+	private String receta;
 
 	//bi-directional many-to-many association to Usuario
 	@ManyToMany(fetch= FetchType.EAGER)
@@ -54,6 +47,11 @@ public class RecetaEntity implements Serializable {
 		)
 	private List<UsuarioEntity> usuarios;
 
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="id_autor")
+	private UsuarioEntity usuario;
+
 	public RecetaEntity() {
 	}
 
@@ -65,19 +63,11 @@ public class RecetaEntity implements Serializable {
 		this.id = id;
 	}
 
-	public String getAutor() {
-		return this.autor;
-	}
-
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
-
-	public Object getDescripcion() {
+	public String getDescripcion() {
 		return this.descripcion;
 	}
 
-	public void setDescripcion(Object descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
@@ -97,11 +87,11 @@ public class RecetaEntity implements Serializable {
 		this.imagen = imagen;
 	}
 
-	public Integer getLikes() {
+	public int getLikes() {
 		return this.likes;
 	}
 
-	public void setLikes(Integer likes) {
+	public void setLikes(int likes) {
 		this.likes = likes;
 	}
 
@@ -113,20 +103,12 @@ public class RecetaEntity implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Object getReceta() {
+	public String getReceta() {
 		return this.receta;
 	}
 
-	public void setReceta(Object receta) {
+	public void setReceta(String receta) {
 		this.receta = receta;
-	}
-
-	public UsuarioEntity getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(UsuarioEntity usuario) {
-		this.usuario = usuario;
 	}
 
 	public List<UsuarioEntity> getUsuarios() {
@@ -135,6 +117,14 @@ public class RecetaEntity implements Serializable {
 
 	public void setUsuarios(List<UsuarioEntity> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public UsuarioEntity getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(UsuarioEntity usuario) {
+		this.usuario = usuario;
 	}
 
 }

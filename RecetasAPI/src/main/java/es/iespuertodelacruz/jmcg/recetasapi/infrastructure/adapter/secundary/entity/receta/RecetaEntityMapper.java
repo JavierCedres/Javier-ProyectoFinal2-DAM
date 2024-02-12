@@ -10,7 +10,6 @@ public class RecetaEntityMapper {
 			receta = new Receta();
 			receta.setId(recetaEntity.getId());
 			receta.setNombre(recetaEntity.getNombre());
-			receta.setAutor(recetaEntity.getAutor());
 			receta.setDescripcion(recetaEntity.getDescripcion());
 			receta.setFechadecreacion(recetaEntity.getFechadecreacion());
 			receta.setImagen(recetaEntity.getImagen());
@@ -28,7 +27,6 @@ public class RecetaEntityMapper {
 			recetaEntity = new RecetaEntity();
 			recetaEntity.setId(receta.getId());
 			recetaEntity.setNombre(receta.getNombre());
-			recetaEntity.setAutor(receta.getAutor());
 			recetaEntity.setDescripcion(receta.getDescripcion());
 			recetaEntity.setFechadecreacion(receta.getFechadecreacion());
 			recetaEntity.setImagen(receta.getImagen());

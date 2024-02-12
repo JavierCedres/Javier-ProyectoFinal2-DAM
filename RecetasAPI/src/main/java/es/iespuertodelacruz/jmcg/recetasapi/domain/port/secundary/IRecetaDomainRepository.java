@@ -9,4 +9,5 @@ public interface IRecetaDomainRepository {
 	Receta save(Receta element);
 	boolean deleteById(Integer id);
 	List<Receta> findAll();
+	boolean update(Integer id, Receta receta);
 }

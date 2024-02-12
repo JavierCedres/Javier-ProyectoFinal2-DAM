@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Receta;
+import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.primary.IRecetaDomainService;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.secundary.IRecetaDomainRepository;
 
@@ -16,27 +17,26 @@ public class RecetaDomainService implements IRecetaDomainService {
 
 	@Override
 	public Receta findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return recetaRepository.findById(id);
 	}
 
 	@Override
 	public Receta save(Receta element) {
-		// TODO Auto-generated method stub
-		return null;
+		return recetaRepository.save(element);
 	}
 
 	@Override
 	public boolean deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
+		return recetaRepository.deleteById(id);
 	}
 
 	@Override
 	public List<Receta> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return recetaRepository.findAll();
 	}
-	
-	
+
+	@Override
+	public boolean update(Integer id, Receta receta) {
+		return recetaRepository.update(id, receta);
+	}
 }

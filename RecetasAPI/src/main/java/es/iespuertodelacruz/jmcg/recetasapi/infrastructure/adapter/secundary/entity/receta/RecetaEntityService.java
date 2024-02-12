@@ -35,6 +35,7 @@ public class RecetaEntityService implements IRecetaDomainRepository {
 	public Receta save(Receta element) {
 		Receta resultado = null;
 		if (element != null) {
+			
 			RecetaEntityMapper mapper = new RecetaEntityMapper();
 			RecetaEntity save = peRepository.save(mapper.toPersistence(element));
 			resultado = mapper.toDomain(save);
@@ -44,8 +45,14 @@ public class RecetaEntityService implements IRecetaDomainRepository {
 
 	@Override
 	public boolean deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ok = false;
+		
+		if (id != null) {
+			peRepository.deleteById(id);
+			ok = true;
+		}
+		
+		return ok;
 	}
 
 	@Override
@@ -53,5 +60,17 @@ public class RecetaEntityService implements IRecetaDomainRepository {
 		List<RecetaEntity> findAll = peRepository.findAll();
 		RecetaEntityMapper mapper = new RecetaEntityMapper();
 		return findAll.stream().map(pe -> mapper.toDomain(pe)).collect(Collectors.toList());
+	}
+
+	@Override
+	public boolean update(Integer id, Receta receta) {
+boolean ok = false;
+		
+		if (id != null) {
+			peRepository.deleteById(id);
+			ok = true;
+		}
+		
+		return ok;
 	}
 }

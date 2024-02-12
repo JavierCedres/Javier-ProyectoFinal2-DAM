@@ -5,19 +5,17 @@ import java.math.BigInteger;
 public class Receta {
 	private Integer id;
 
-	private String autor;
-
-	private Object descripcion;
+	private String descripcion;
 
 	private BigInteger fechadecreacion;
 
 	private String imagen;
 
-	private Integer likes;
+	private int likes;
 
 	private String nombre;
 
-	private Object receta;
+	private String receta;
 
 	public Receta() {
 		super();
@@ -31,19 +29,11 @@ public class Receta {
 		this.id = id;
 	}
 
-	public String getAutor() {
-		return autor;
-	}
-
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
-
-	public Object getDescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setDescripcion(Object descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
@@ -79,11 +69,11 @@ public class Receta {
 		this.nombre = nombre;
 	}
 
-	public Object getReceta() {
+	public String getReceta() {
 		return receta;
 	}
 
-	public void setReceta(Object receta) {
+	public void setReceta(String receta) {
 		this.receta = receta;
 	}
 }
