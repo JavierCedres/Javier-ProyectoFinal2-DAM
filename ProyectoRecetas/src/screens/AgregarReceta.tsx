@@ -20,7 +20,7 @@ type RecetaPreview = {
 }
 
 const AgregarReceta = ({navigation}: Props) => {
-    const uri: string = "http://192.168.0.16:3000/recetas";
+    const uri: string = "http://192.168.0.17:8080/api/v1/recetas";
     const [recetas, setRecetas] = useState<Array<RecetaPreview>>([]);
 	const [ultimoId, setUltimoId] = useState<string>("0");
 	const [formData, setFormData] = useState<RecetaPreview>({} as RecetaPreview);

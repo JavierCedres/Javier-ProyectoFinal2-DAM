@@ -8,35 +8,23 @@ type Props = {
 }
 
 type Usuario = {
-	id: string,
 	imagen: string,
-	nombre: string,
+	user: string,
 	apellidos: string,
 	password: string,
 	nick: string,
-	correo: string,
-    amigos: Array<string>
+	email: string
 }
 
 const Register = ({navigation}: Props) => {
-	const uri: string = "http://192.168.0.16:3000/usuarios";
+	const uri: string = "http://192.168.0.17:8080/api/v1/usuarios";
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([]);
 	const [formData, setFormData] = useState<Usuario>({} as Usuario);
-	const [ultimoId, setUltimoId] = useState<string>("0");
 
     useEffect(() => {
         async function getUsuarios() {
             const response = await axios.get(uri);
             const arrUsuarios: Array<Usuario> = response.data;
-			let ultimoId = "0";
-
-			for (let i = 0; i < arrUsuarios.length; i++) {
-				ultimoId = arrUsuarios[i].id;
-			}
-
-			let idNuevo: number = Number(ultimoId) + 1;
-            
-			setUltimoId(String(idNuevo));
             setUsuarios(arrUsuarios);
         }
 
@@ -54,18 +42,16 @@ const Register = ({navigation}: Props) => {
     }
 
 	function registrarse() {
-		if (formData.apellidos != "" && formData.correo != "" && formData.nick != "" && formData.nombre != "" && formData.password != "") {
+		if (formData.apellidos != "" && formData.email != "" && formData.nick != "" && formData.user != "" && formData.password != "") {
 			let existe: boolean = false;
 
 			const user: Usuario = {
-				id: ultimoId,
 				imagen: "",
-				nombre: formData.nombre,
+				user: formData.user,
 				apellidos: formData.apellidos,
 				nick: formData.nick,
-				correo: formData.correo,
-				password: formData.password,
-				amigos: []
+				email: formData.email,
+				password: formData.password
 			}
 			
 			for (let i = 0; i < usuarios.length; i++) {
@@ -81,11 +67,12 @@ const Register = ({navigation}: Props) => {
 					navigation.navigate("Main");
 				} catch (error) {
 					console.log(error);
+					navigation.navigate("Main");
 				}
 			}
 
 			if (!existe) {
-				axiosPost(uri);
+				axiosPost(uri + "/register");
 			}
 		}
 	}
@@ -100,7 +87,7 @@ const Register = ({navigation}: Props) => {
 					<View style={{ marginBottom: 10 }}>
 						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 							<Text style={{ color: 'black', width: 80 }}>Nombre: </Text>
-							<TextInput style={{ backgroundColor: 'white', height: 30, flex: 1, paddingVertical: 5}} onChangeText={(texto) => fillFormData(texto, "nombre")}/>
+							<TextInput style={{ backgroundColor: 'white', height: 30, flex: 1, paddingVertical: 5}} onChangeText={(texto) => fillFormData(texto, "user")}/>
 						</View>
 						<Text></Text>
 						<Text></Text>
@@ -118,13 +105,13 @@ const Register = ({navigation}: Props) => {
 						<Text></Text>
 						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 							<Text style={{ color: 'black', width: 80 }}>Correo: </Text>
-							<TextInput style={{ backgroundColor: 'white', height: 30, flex: 1, paddingVertical: 5}} onChangeText={(texto) => fillFormData(texto, "correo")}/>
+							<TextInput style={{ backgroundColor: 'white', height: 30, flex: 1, paddingVertical: 5}} onChangeText={(texto) => fillFormData(texto, "email")}/>
 						</View>
 						<Text></Text>
 						<Text></Text>
 						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 							<Text style={{ color: 'black', width: 80 }}>Contraseña: </Text>
-							<TextInput style={{ backgroundColor: 'white', height: 30, flex: 1, paddingVertical: 5}} onChangeText={(texto) => fillFormData(texto, "password")}/>
+							<TextInput secureTextEntry={true} style={{ backgroundColor: 'white', height: 30, flex: 1, paddingVertical: 5}} onChangeText={(texto) => fillFormData(texto, "password")}/>
 						</View>
 					</View>
 					<TouchableOpacity onPress={() => navigation.navigate("Login")}><Text style={{textAlign: 'right', color: "black", marginTop: 10, textDecorationLine: 'underline'}}>Login</Text></TouchableOpacity>

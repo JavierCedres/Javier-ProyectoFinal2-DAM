@@ -22,7 +22,7 @@ type RecetaPreview = {
 }
 
 const Main = ({navigation}: Props) => {
-    const uri: string = "http://192.168.0.16:3000/recetas";
+    const uri: string = "http://192.168.0.17:8080/api/v1/recetas";
     const [recetas, setRecetas] = useState<Array<RecetaPreview>>();
 
     useFocusEffect(() => {

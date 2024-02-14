@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -7,30 +7,13 @@ type Props = {
 }
 
 type Usuario = {
-	id: string,
-	imagen: string,
-	nombre: string,
-	apellidos: string,
 	password: string,
-	nick: string,
-	correo: string
+	nick: string
 }
 
 const Login = ({navigation}: Props) => {
-	const uri: string = "http://192.168.0.16:3000/usuarios";
-    const [usuarios, setUsuarios] = useState<Array<Usuario>>([]);
+	const uri: string = "http://192.168.0.17:8080/api/v1/usuarios";
 	const [formData, setFormData] = useState<Usuario>({} as Usuario);
-
-    useEffect(() => {
-        async function getUsuarios() {
-            const response = await axios.get(uri);
-            const arrUsuarios: Array<Usuario> = response.data;
-
-            setUsuarios(arrUsuarios);
-        }
-
-        getUsuarios();
-    }, [])
 
 	function fillFormData(value: boolean | number | string, field: keyof Usuario) {
         setFormData(
@@ -42,11 +25,23 @@ const Login = ({navigation}: Props) => {
     }
 
 	function logearse() {
-		for (let i = 0; i < usuarios.length; i++) {
-			if (usuarios[i].nick == formData.nick && usuarios[i].password == formData.password) {
+		const user: Usuario = {
+			nick: formData.nick,
+			password: formData.password
+		}
+
+		async function login() {
+			try {
+				const response = await axios.post(uri + "/login", user);
 				navigation.navigate("Main");
+				console.log(response.data);
+			} catch (error) {
+				ToastAndroid.show('Usuario erroneo', ToastAndroid.SHORT);
+				console.log(error);
 			}
 		}
+
+		login();
 	}
 
     return (
@@ -64,7 +59,7 @@ const Login = ({navigation}: Props) => {
 					<Text></Text>
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 						<Text style={{ color: 'black', width: 80 }}>Contraseña: </Text>
-						<TextInput style={{ backgroundColor: 'white', height: 30, flex: 1, paddingVertical: 5}} onChangeText={(texto) => fillFormData(texto, "password")}/>
+						<TextInput secureTextEntry={true} style={{ backgroundColor: 'white', height: 30, flex: 1, paddingVertical: 5}} onChangeText={(texto) => fillFormData(texto, "password")}/>
 					</View>
 				</View>
 				<TouchableOpacity onPress={() => navigation.navigate("Register")}><Text style={{textAlign: 'right', color: "black", marginTop: 10, textDecorationLine: 'underline'}}>Register</Text></TouchableOpacity>
