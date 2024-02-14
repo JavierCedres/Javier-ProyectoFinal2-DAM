@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Receta;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.secundary.IRecetaDomainRepository;
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.primary.RecetaUpdateDTO;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -62,12 +63,13 @@ public class RecetaEntityService implements IRecetaDomainRepository {
 		return findAll.stream().map(pe -> mapper.toDomain(pe)).collect(Collectors.toList());
 	}
 
+	@Transactional
 	@Override
-	public boolean update(Integer id, Receta receta) {
-boolean ok = false;
+	public boolean update(Integer id, RecetaUpdateDTO receta) {
+		boolean ok = false;
 		
-		if (id != null) {
-			peRepository.deleteById(id);
+		if (id != null && receta != null) {
+			peRepository.updateNativo(id, receta.getDescripcion(), receta.getNombre(), receta.getImagen(), receta.getReceta());
 			ok = true;
 		}
 		

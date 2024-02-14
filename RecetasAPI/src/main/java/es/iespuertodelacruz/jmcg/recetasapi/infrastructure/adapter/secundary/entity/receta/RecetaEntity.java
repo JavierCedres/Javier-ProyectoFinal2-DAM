@@ -24,7 +24,7 @@ public class RecetaEntity implements Serializable {
 
 	private String descripcion;
 
-	private BigInteger fechadecreacion;
+	private Long fechadecreacion;
 
 	private String imagen;
 
@@ -71,11 +71,11 @@ public class RecetaEntity implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public BigInteger getFechadecreacion() {
+	public Long getFechadecreacion() {
 		return this.fechadecreacion;
 	}
 
-	public void setFechadecreacion(BigInteger fechadecreacion) {
+	public void setFechadecreacion(Long fechadecreacion) {
 		this.fechadecreacion = fechadecreacion;
 	}
 

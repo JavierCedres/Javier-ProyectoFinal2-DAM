@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.primary;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Receta;
+import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.primary.IRecetaDomainService;
+import es.iespuertodelacruz.jmcg.recetasapi.domain.port.primary.IUsuarioDomainService;
 
 @RestController
 @CrossOrigin
@@ -24,6 +27,8 @@ public class RecetaController {
 	
 	@Autowired IRecetaDomainService recetaService;
 	
+	@Autowired IUsuarioDomainService usuarioService;
+	
 	@GetMapping
 	public ResponseEntity<?> getRecetas() {
 		List<Receta> findAll = recetaService.findAll();
@@ -31,9 +36,18 @@ public class RecetaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> saveRecetas(@RequestBody Receta receta) {
+	public ResponseEntity<?> saveRecetas(@RequestBody RecetaDTO recetaDTO) {
+		Receta receta = new Receta();
+		receta.setDescripcion(recetaDTO.getDescripcion());
+		long currentTimeMillis = System.currentTimeMillis();
+		receta.setFechadecreacion(currentTimeMillis);
+		receta.setImagen(recetaDTO.getImagen());
+		receta.setLikes(0);
+		receta.setNombre(recetaDTO.getNombre());
+		receta.setReceta(recetaDTO.getReceta());
+		Usuario findById = usuarioService.findById(recetaDTO.getIdUsuario());
+		receta.setUsuario(findById);
 		Receta save = recetaService.save(receta);
-		System.out.println("Asdasd");
 		return ResponseEntity.ok(save);
 	}
 	
@@ -50,7 +64,8 @@ public class RecetaController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateRecetas(@PathVariable Integer id, @RequestBody Receta receta) {
-		return ResponseEntity.ok(null);
+	public ResponseEntity<?> updateRecetas(@PathVariable Integer id, @RequestBody RecetaUpdateDTO receta) {
+		boolean update = recetaService.update(id, receta);
+		return ResponseEntity.ok(update);
 	}
 }

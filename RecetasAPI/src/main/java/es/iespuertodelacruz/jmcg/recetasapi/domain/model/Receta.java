@@ -7,7 +7,7 @@ public class Receta {
 
 	private String descripcion;
 
-	private BigInteger fechadecreacion;
+	private Long fechadecreacion;
 
 	private String imagen;
 
@@ -16,6 +16,8 @@ public class Receta {
 	private String nombre;
 
 	private String receta;
+	
+	private Usuario usuario;
 
 	public Receta() {
 		super();
@@ -37,11 +39,11 @@ public class Receta {
 		this.descripcion = descripcion;
 	}
 
-	public BigInteger getFechadecreacion() {
+	public Long getFechadecreacion() {
 		return fechadecreacion;
 	}
 
-	public void setFechadecreacion(BigInteger fechadecreacion) {
+	public void setFechadecreacion(Long fechadecreacion) {
 		this.fechadecreacion = fechadecreacion;
 	}
 
@@ -53,11 +55,11 @@ public class Receta {
 		this.imagen = imagen;
 	}
 
-	public Integer getLikes() {
+	public int getLikes() {
 		return likes;
 	}
 
-	public void setLikes(Integer likes) {
+	public void setLikes(int likes) {
 		this.likes = likes;
 	}
 
@@ -75,5 +77,13 @@ public class Receta {
 
 	public void setReceta(String receta) {
 		this.receta = receta;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

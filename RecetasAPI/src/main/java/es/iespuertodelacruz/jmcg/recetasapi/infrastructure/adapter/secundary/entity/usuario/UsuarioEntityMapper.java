@@ -3,6 +3,7 @@ package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.en
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
 
 public class UsuarioEntityMapper {
+
 	public Usuario toDomain(UsuarioEntity usuarioEntity) {
 		Usuario usuario = null;
 		

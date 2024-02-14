@@ -9,6 +9,7 @@ import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Receta;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.primary.IRecetaDomainService;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.secundary.IRecetaDomainRepository;
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.primary.RecetaUpdateDTO;
 
 @Service
 public class RecetaDomainService implements IRecetaDomainService {
@@ -36,7 +37,7 @@ public class RecetaDomainService implements IRecetaDomainService {
 	}
 
 	@Override
-	public boolean update(Integer id, Receta receta) {
+	public boolean update(Integer id, RecetaUpdateDTO receta) {
 		return recetaRepository.update(id, receta);
 	}
 }
