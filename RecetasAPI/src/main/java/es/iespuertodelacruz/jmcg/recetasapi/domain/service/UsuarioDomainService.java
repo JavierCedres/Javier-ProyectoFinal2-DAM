@@ -49,6 +49,10 @@ public class UsuarioDomainService implements IUsuarioDomainService {
 		return usuarioRepository.findByName(nombre);
 	}
 	
+	public Usuario findByNick(String nombre) {
+		return usuarioRepository.findByNick(nombre);
+	}
+	
 	public List<String> findAllEmails() {
 		List<String> correos = new ArrayList<String>();
 		List<Usuario> findAll = usuarioRepository.findAll();

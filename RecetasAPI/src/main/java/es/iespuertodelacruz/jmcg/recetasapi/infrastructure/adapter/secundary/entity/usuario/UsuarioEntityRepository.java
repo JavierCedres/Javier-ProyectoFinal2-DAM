@@ -13,4 +13,7 @@ public interface UsuarioEntityRepository extends JpaRepository<UsuarioEntity, In
 	
 	@Query("SELECT u from UsuarioEntity u where u.email=:email")
 	public UsuarioEntity findByEmail(@Param("email") String email);
+	
+	@Query("SELECT u from UsuarioEntity u where u.nick=:nick")
+	public UsuarioEntity findByNick(@Param("nick") String nick);
 }

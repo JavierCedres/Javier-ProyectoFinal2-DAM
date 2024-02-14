@@ -68,4 +68,11 @@ public class UsuarioEntityService implements IUsuarioDomainRepository {
 		Usuario domain = mapper.toDomain(peRepository.findByEmail(email));
 		return domain;
 	}
+
+	@Override
+	public Usuario findByNick(String nick) {
+		UsuarioEntityMapper mapper = new UsuarioEntityMapper();
+		Usuario domain = mapper.toDomain(peRepository.findByNick(nick));
+		return domain;
+	}
 }

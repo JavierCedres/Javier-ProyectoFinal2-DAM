@@ -11,5 +11,6 @@ public interface IUsuarioDomainRepository {
 	boolean deleteById(Integer id);
 	List<Usuario> findAll();
 	Usuario findByName(String name);
+	Usuario findByNick(String nick);
 	Usuario findByEmail(String email);
 }

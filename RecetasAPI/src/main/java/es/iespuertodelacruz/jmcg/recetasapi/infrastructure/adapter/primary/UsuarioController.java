@@ -19,26 +19,19 @@ import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.security.AuthService;
 import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.security.UserDetailsLogin;
 
 class UserDTO{
-	String nombre;
+	String nick;
 	String password;
-	String email;
-	public String getNombre() {
-		return nombre;
+	public String getNick() {
+		return nick;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public UserDTO() {}
 }
@@ -80,9 +73,8 @@ public class UsuarioController {
 	@PostMapping("/login")
 	public ResponseEntity<String> authenticate(@RequestBody UserDTO request) {
 		UserDetailsLogin userDL = new UserDetailsLogin();
-		userDL.setEmail(request.email);
 		userDL.setPassword(request.password);
-		userDL.setUsername(request.nombre);
+		userDL.setNick(request.nick);
 		String token = service.authenticate(userDL);
 		if(token == null) {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User/pass erróneo");

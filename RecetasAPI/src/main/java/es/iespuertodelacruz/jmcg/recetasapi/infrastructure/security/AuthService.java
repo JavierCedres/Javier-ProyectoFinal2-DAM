@@ -44,14 +44,14 @@ public class AuthService {
 	}
 
 	public String authenticate(UserDetailsLogin request) {
-		Usuario userentity = usuarioService.findByName(request.getUsername());
+		Usuario userentity = usuarioService.findByNick(request.getNick());
 		UserDetailsLogin userlogin = null;
 		System.out.println(userentity);
 		if (userentity != null) {
 			System.out.println(userentity);
 			if (passwordEncoder.matches(request.getPassword(), userentity.getPassword())) {
 				userlogin = new UserDetailsLogin();
-				userlogin.setUsername(userentity.getNombre());
+				userlogin.setNick(userentity.getNick());
 				userlogin.setPassword(userentity.getPassword());
 				userlogin.setRole(userentity.getRol());
 				System.out.println("aaaaaaaaaaaa" + userlogin);
