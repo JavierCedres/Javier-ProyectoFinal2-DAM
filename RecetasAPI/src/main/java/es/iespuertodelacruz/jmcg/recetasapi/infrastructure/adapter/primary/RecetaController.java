@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.primary;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Receta;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.primary.IRecetaDomainService;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.primary.IUsuarioDomainService;
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.entity.receta.FileStorageRecetaService;
 
 @RestController
 @CrossOrigin
@@ -28,6 +30,8 @@ public class RecetaController {
 	@Autowired IRecetaDomainService recetaService;
 	
 	@Autowired IUsuarioDomainService usuarioService;
+	
+	@Autowired FileStorageRecetaService fileStorageRecetaService;
 	
 	@GetMapping
 	public ResponseEntity<?> getRecetas() {
@@ -41,12 +45,20 @@ public class RecetaController {
 		receta.setDescripcion(recetaDTO.getDescripcion());
 		long currentTimeMillis = System.currentTimeMillis();
 		receta.setFechadecreacion(currentTimeMillis);
-		receta.setImagen(recetaDTO.getImagen());
 		receta.setLikes(0);
 		receta.setNombre(recetaDTO.getNombre());
 		receta.setReceta(recetaDTO.getReceta());
 		Usuario findById = usuarioService.findById(recetaDTO.getIdUsuario());
 		receta.setUsuario(findById);
+		
+		String codedfoto = recetaDTO.getImagen64();
+		byte[] photoBytes = Base64.getDecoder().decode(codedfoto);
+		System.out.println(codedfoto);
+		System.out.println(photoBytes); 
+		String nombreNuevoFichero = fileStorageRecetaService.save(recetaDTO.getImagenNombre(), photoBytes);
+		
+		receta.setImagen(nombreNuevoFichero); 
+		
 		Receta save = recetaService.save(receta);
 		return ResponseEntity.ok(save);
 	}

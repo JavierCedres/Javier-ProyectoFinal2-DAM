@@ -7,7 +7,9 @@ import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
 public class RecetaDTO {
 	private String descripcion;
 	
-	private String imagen;
+	private String imagen64;
+	
+	private String imagenNombre;
 
 	private String nombre;
 
@@ -27,12 +29,20 @@ public class RecetaDTO {
 		this.descripcion = descripcion;
 	}
 
-	public String getImagen() {
-		return imagen;
+	public String getImagen64() {
+		return imagen64;
 	}
 
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
+	public void setImagen64(String imagen64) {
+		this.imagen64 = imagen64;
+	}
+	
+	public String getImagenNombre() {
+		return imagenNombre;
+	}
+
+	public void setImagenNombre(String imagenNombre) {
+		this.imagenNombre = imagenNombre;
 	}
 
 	public String getNombre() {
