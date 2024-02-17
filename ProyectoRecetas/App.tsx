@@ -26,6 +26,7 @@ import {
 	ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import StackNavigation from './src/navigator/StackNavigation';
+import AppContextProvider from './src/context/AppContextProvider';
 
 type SectionProps = PropsWithChildren<{
 	title: string;
@@ -40,7 +41,9 @@ function App(): JSX.Element {
 
 	return (
 		<NavigationContainer>
-			<StackNavigation/>
+			<AppContextProvider>
+				<StackNavigation/>
+			</AppContextProvider>
 		</NavigationContainer>
  	);
 }

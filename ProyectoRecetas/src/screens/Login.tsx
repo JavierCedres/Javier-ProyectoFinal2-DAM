@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
+import { AppContext } from '../context/AppContextProvider'
 
 type Props = {
     navigation: any
@@ -14,6 +15,7 @@ type Usuario = {
 const Login = ({navigation}: Props) => {
 	const uri: string = "http://192.168.0.17:8080/api/v1/usuarios";
 	const [formData, setFormData] = useState<Usuario>({} as Usuario);
+	const {setIdUsuario, setNickUsuario} = useContext(AppContext);
 
 	function fillFormData(value: boolean | number | string, field: keyof Usuario) {
         setFormData(
@@ -33,6 +35,12 @@ const Login = ({navigation}: Props) => {
 		async function login() {
 			try {
 				const response = await axios.post(uri + "/login", user);
+				const responseGet = await axios.get(uri + "/nombre/" + formData.nick);
+
+				setNickUsuario(formData.nick);
+				setIdUsuario(responseGet.data.id)
+				console.log(responseGet.data.id);
+
 				navigation.navigate("Main");
 				console.log(response.data);
 			} catch (error) {

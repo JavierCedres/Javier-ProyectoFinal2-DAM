@@ -10,22 +10,26 @@ type Props = {
     navigation: any
 }
 
+type Usuario = {
+    nick: string
+}
+
 type RecetaPreview = {
-    id: string,
-    imagen: string,
-    autor: string,
-    nombre: string,
-    likes: number,
+    id: number,
     descripcion: string,
+    fechadecreacion: string,
+    imagen: string,
+    likes: number,
+    nombre: string,
     receta: string,
-    comentarios: Array<string>
+    usuario: Usuario
 }
 
 const Main = ({navigation}: Props) => {
     const uri: string = "http://192.168.0.17:8080/api/v1/recetas";
     const [recetas, setRecetas] = useState<Array<RecetaPreview>>();
 
-    useFocusEffect(() => {
+    useEffect(() => {
         async function getRecetas() {
             const response = await axios.get(uri);
             const arrRecetas = response.data;
@@ -34,7 +38,7 @@ const Main = ({navigation}: Props) => {
         }
 
         getRecetas();
-    })
+    }), []
 
     return (
         <View style={{display: 'flex', flex: 1, alignItems: 'center', backgroundColor: "#fff4ce"}}>

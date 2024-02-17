@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import axios from 'axios'
+import { AppContext } from '../context/AppContextProvider'
 
 type Props = {
 	navigation: any
@@ -20,6 +21,7 @@ const Register = ({navigation}: Props) => {
 	const uri: string = "http://192.168.0.17:8080/api/v1/usuarios";
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([]);
 	const [formData, setFormData] = useState<Usuario>({} as Usuario);
+	const {setNickUsuario, setIdUsuario} = useContext(AppContext);
 
     useEffect(() => {
         async function getUsuarios() {
@@ -64,9 +66,17 @@ const Register = ({navigation}: Props) => {
 				try {
 					const response = await axios.post(rutaPalPost, user);
 					console.log(response.data);
+
+					const responseGet = await axios.get(rutaPalPost + "/" + formData.nick);
+
+					setNickUsuario(formData.nick);
+					setIdUsuario(responseGet.data.id)
+					console.log(responseGet.data.id);
+					
 					navigation.navigate("Main");
 				} catch (error) {
 					console.log(error);
+					setNickUsuario(formData.nick);
 					navigation.navigate("Main");
 				}
 			}

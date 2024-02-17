@@ -18,43 +18,32 @@ type RootStackParamList = {
 };
 
 type Usuario = {
-	id: string,
-	imagen: string,
-	nombre: string,
-	apellidos: string,
-	password: string,
-	nick: string,
-	correo: string,
-    amigos: Array<string>
+    nick: string
 }
 
 type RecetaPreview = {
-    id: string,
-    imagen: string,
-    autor: string,
-    nombre: string,
-    likes: number,
+    id: number,
     descripcion: string,
+    fechadecreacion: string,
+    imagen: string,
+    likes: number,
+    nombre: string,
     receta: string,
-    comentarios: Array<string>
+    usuario: Usuario
 }
 
 type Props = NativeStackScreenProps<RootStackParamList, "DetallesReceta">;
 
 const DetallesReceta = ({navigation, route}: Props) => {
-    const uri: string = "http://192.168.0.16:3000/recetas";
+    const uri: string = "http://192.168.0.17:8080/api/v1/recetas/" + route.params.id;
     const [receta, setReceta] = useState<RecetaPreview>();
 
     useEffect(() => {
         async function getRecetas() {
             const response = await axios.get(uri);
-            const arrRecetas = response.data;
-
-            for (let i = 0; i < arrRecetas.length; i++) {
-                if (arrRecetas[i].id == route.params.id) {
-                    setReceta(arrRecetas[i]);
-                }
-            }
+            const rece = response.data;
+            
+            setReceta(rece);
         }
 
         getRecetas();
@@ -66,13 +55,13 @@ const DetallesReceta = ({navigation, route}: Props) => {
             <View style={{flex: 1, backgroundColor: "white", width: 300, margin: 50}}>
                 <View style={{flexDirection: 'row', alignItems: 'center', margin: 20}}>
                     <Image 
-                        source={{uri: receta?.imagen}}
+                        source={{uri: "http://192.168.0.17:8080/api/v1/files/recetas/" + receta?.imagen}}
                         style={{width: 100, height: 100}}
                     />
                     <View style={{flexDirection: 'column', marginLeft: 20, width: 150}}>
                         <Text style={{color: "black"}}>Título: {receta?.nombre}</Text>
                         <Text></Text>
-                        <Text style={{color: "black"}}>Autor: {receta?.autor}</Text>
+                        <Text style={{color: "black"}}>Autor: {receta?.usuario.nick}</Text>
                     </View>
                 </View>
                 <View style={{margin: 20, flexDirection: 'row', flex: 1}}>
@@ -92,12 +81,14 @@ const DetallesReceta = ({navigation, route}: Props) => {
                 <View style={{margin: 20, flexDirection: 'row', flex: 1}}>
                     <View style={{borderWidth: 1, padding: 5, width: 260, overflow: 'hidden'}}>
                         <Text style={{color: "black"}}>Comentarios:</Text>
+                        {/*
                         <FlatList
                             data={receta?.comentarios}
                             renderItem={({item}) => 
                                 <Text style={{color: "black"}}>{item}</Text>
                             }
                         />
+                        */}
                     </View>
                 </View>
             </View>
