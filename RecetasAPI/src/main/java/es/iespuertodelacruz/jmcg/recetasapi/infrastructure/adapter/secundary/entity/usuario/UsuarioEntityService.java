@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
@@ -74,5 +75,22 @@ public class UsuarioEntityService implements IUsuarioDomainRepository {
 		UsuarioEntityMapper mapper = new UsuarioEntityMapper();
 		Usuario domain = mapper.toDomain(peRepository.findByNick(nick));
 		return domain;
+	}
+
+	@Override
+	public ResponseEntity<String> updateEstado(String userEmail, String hash) {
+		UsuarioEntity findByEmail = peRepository.findByEmail(userEmail);
+		
+		if (findByEmail != null) {
+			if (hash.equals(findByEmail.getHash())) {
+				findByEmail.setActive(1);
+				peRepository.save(findByEmail);
+				return ResponseEntity.ok("Ok");
+			} else {
+				return ResponseEntity.ok("hash erroneo");
+			}
+		} else {
+			return ResponseEntity.ok("No Email");
+		}
 	}
 }

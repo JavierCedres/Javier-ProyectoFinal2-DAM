@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
@@ -55,6 +56,12 @@ public class UsuarioController {
 		return ResponseEntity.ok(findAll);
 	}
 	
+	@GetMapping("/nombre/{nick}")
+	public ResponseEntity<?> usuariosGetByNick(@PathVariable String nick) {
+		Usuario findByName = usuarioService.findByNick(nick);
+		return ResponseEntity.ok(findByName);
+	}
+	
 	@Autowired
 	private AuthService service;
 
@@ -83,10 +90,8 @@ public class UsuarioController {
 		}
 	}
 	
-	/*
-
 	@GetMapping("registerverify")
 	public ResponseEntity<String> mailVerify(@RequestParam String usermail, @RequestParam String hash) {
 		return usuarioService.updateEstado(usermail, hash);
-	}*/
+	}
 }

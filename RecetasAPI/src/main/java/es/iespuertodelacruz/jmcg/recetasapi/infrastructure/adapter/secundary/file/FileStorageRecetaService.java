@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.entity.receta;
+package es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.file;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

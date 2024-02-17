@@ -20,7 +20,7 @@ import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Receta;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Usuario;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.primary.IRecetaDomainService;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.primary.IUsuarioDomainService;
-import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.entity.receta.FileStorageRecetaService;
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.file.FileStorageRecetaService;
 
 @RestController
 @CrossOrigin
@@ -53,8 +53,6 @@ public class RecetaController {
 		
 		String codedfoto = recetaDTO.getImagen64();
 		byte[] photoBytes = Base64.getDecoder().decode(codedfoto);
-		System.out.println(codedfoto);
-		System.out.println(photoBytes); 
 		String nombreNuevoFichero = fileStorageRecetaService.save(recetaDTO.getImagenNombre(), photoBytes);
 		
 		receta.setImagen(nombreNuevoFichero); 
