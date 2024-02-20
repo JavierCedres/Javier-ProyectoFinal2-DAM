@@ -40,4 +40,9 @@ public class RecetaDomainService implements IRecetaDomainService {
 	public boolean update(Integer id, RecetaUpdateDTO receta) {
 		return recetaRepository.update(id, receta);
 	}
+
+	@Override
+	public List<Receta> findAllByUsuario(Integer id) {
+		return recetaRepository.findAllByUsuario(id);
+	}
 }

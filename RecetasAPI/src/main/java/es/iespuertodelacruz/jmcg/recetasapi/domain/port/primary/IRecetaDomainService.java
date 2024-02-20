@@ -11,4 +11,5 @@ public interface IRecetaDomainService {
 	boolean deleteById(Integer id);
 	List<Receta> findAll();
 	boolean update(Integer id, RecetaUpdateDTO receta);
+	List<Receta> findAllByUsuario(Integer id);
 }

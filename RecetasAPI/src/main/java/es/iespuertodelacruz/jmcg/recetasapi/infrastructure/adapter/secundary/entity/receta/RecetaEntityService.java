@@ -75,4 +75,11 @@ public class RecetaEntityService implements IRecetaDomainRepository {
 		
 		return ok;
 	}
+
+	@Override
+	public List<Receta> findAllByUsuario(Integer id) {
+		List<RecetaEntity> findAll = peRepository.findAllByAutor(id);
+		RecetaEntityMapper mapper = new RecetaEntityMapper();
+		return findAll.stream().map(pe -> mapper.toDomain(pe)).collect(Collectors.toList());
+	}
 }

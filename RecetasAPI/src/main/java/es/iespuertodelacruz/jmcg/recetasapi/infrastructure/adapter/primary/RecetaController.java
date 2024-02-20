@@ -78,4 +78,10 @@ public class RecetaController {
 		boolean update = recetaService.update(id, receta);
 		return ResponseEntity.ok(update);
 	}
+	
+	@GetMapping("usuarios/{id}")
+	public ResponseEntity<?> getRecetasByUsuario(@PathVariable Integer id){
+		List<Receta> allByUsuario = recetaService.findAllByUsuario(id);
+		return ResponseEntity.ok(allByUsuario);
+	}
 }
