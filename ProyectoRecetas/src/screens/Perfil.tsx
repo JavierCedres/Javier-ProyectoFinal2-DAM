@@ -27,8 +27,8 @@ type RecetaPreview = {
 
 const Perfil = ({navigation}: Props) => {
 	const { idUsuario } = useContext(AppContext);
-	//const uri: string = "http://172.16.141.33:8080/api/v1/recetas/usuarios/" + idUsuario;
-    const uri: string = "http://192.168.0.20:8080/api/v1/recetas/usuarios/" + idUsuario;
+	const uri: string = "http://172.16.141.33:8080/api/v1/recetas/usuarios/" + idUsuario;
+    //const uri: string = "http://192.168.0.20:8080/api/v1/recetas/usuarios/" + idUsuario;
 	const [recetas, setRecetas] = useState<Array<RecetaPreview>>();
 
     useEffect(() => {

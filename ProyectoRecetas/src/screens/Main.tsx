@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
+import { FlatList, StyleSheet, Text, TextInput, View, TouchableOpacity, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import NavBarTop from '../components/NavBarTop'
 import RecetaCard from '../components/RecetaCard'
@@ -27,9 +27,10 @@ type RecetaPreview = {
 
 const Main = ({navigation}: Props) => {
     //const uri: string = "http://192.168.0.17:8080/api/v1/recetas";
-    //const uri: string = "http://172.16.141.33:8080/api/v1/recetas";
-    const uri: string = "http://192.168.0.20:8080/api/v1/recetas";
+    const uri: string = "http://172.16.141.33:8080/api/v1/recetas";
+    //const uri: string = "http://192.168.0.20:8080/api/v1/recetas";
     const [recetas, setRecetas] = useState<Array<RecetaPreview>>();
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         async function getRecetas() {
@@ -41,6 +42,17 @@ const Main = ({navigation}: Props) => {
 
         getRecetas();
     }, [])
+
+    function handleRefresh() {
+        async function getRecetas() {
+            const response = await axios.get(uri);
+            const arrRecetas = response.data;
+            
+            setRecetas(arrRecetas);
+        }
+
+        getRecetas();
+    }
 
     return (
         <View style={{display: 'flex', flex: 1, alignItems: 'center', backgroundColor: "#fff4ce"}}>
@@ -55,6 +67,12 @@ const Main = ({navigation}: Props) => {
                         <TouchableOpacity onPress={() => navigation.navigate("DetallesReceta", {id: item.id})}><RecetaCard recetaPreview={item} /></TouchableOpacity>
                     }
                     numColumns={2}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing = {refreshing}
+                            onRefresh={handleRefresh}
+                        />
+                    }
                 />
             </View>
             <NavBarBottom navigation={navigation}/>

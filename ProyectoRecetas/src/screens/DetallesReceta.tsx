@@ -36,11 +36,11 @@ type Props = NativeStackScreenProps<RootStackParamList, "DetallesReceta">;
 
 const DetallesReceta = ({navigation, route}: Props) => {
     //const uri: string = "http://192.168.0.17:8080/api/v1/recetas/" + route.params.id;
-    //const uri: string = "http://172.16.141.33:8080/api/v1/recetas/" + route.params.id;
-    const uri: string = "http://192.168.0.20:8080/api/v1/recetas/" + route.params.id;
+    const uri: string = "http://172.16.141.33:8080/api/v1/recetas/" + route.params.id;
+    //const uri: string = "http://192.168.0.20:8080/api/v1/recetas/" + route.params.id;
     const [receta, setReceta] = useState<RecetaPreview>();
-    //const uriImagen =  "http://172.16.141.33:8080/api/v1/files/recetas/" + receta?.imagen;
-    const uriImagen =  "http://192.168.0.20:8080/api/v1/files/recetas/" + receta?.imagen;
+    const uriImagen =  "http://172.16.141.33:8080/api/v1/files/recetas/" + receta?.imagen;
+    //const uriImagen =  "http://192.168.0.20:8080/api/v1/files/recetas/" + receta?.imagen;
 
     useEffect(() => {
         async function getRecetas() {

@@ -23,8 +23,8 @@ type RecetaPreview = {
 
 const AgregarReceta = ({ navigation }: Props) => {
     //const uri: string = "http://192.168.0.17:8080/api/v1/recetas";
-    //const uri: string = "http://172.16.141.33:8080/api/v1/recetas";
-    const uri: string = "http://192.168.0.20:8080/api/v1/recetas";
+    const uri: string = "http://172.16.141.33:8080/api/v1/recetas";
+    //const uri: string = "http://192.168.0.20:8080/api/v1/recetas";
     const [formData, setFormData] = useState<RecetaPreview>({} as RecetaPreview);
     const [selectedImage, setSelectedImage] = useState<string>({} as string);
     const { nickUsuario, idUsuario } = useContext(AppContext);
