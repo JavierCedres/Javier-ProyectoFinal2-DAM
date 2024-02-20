@@ -18,7 +18,9 @@ type Usuario = {
 }
 
 const Register = ({navigation}: Props) => {
-	const uri: string = "http://192.168.0.17:8080/api/v1/usuarios";
+	//const uri: string = "http://192.168.0.17:8080/api/v1/usuarios";
+	//const uri: string = "http://172.16.141.33:8080/api/v1/usuarios";
+	const uri: string = "http://192.168.0.20:8080/api/v1/usuarios";
     const [usuarios, setUsuarios] = useState<Array<Usuario>>([]);
 	const [formData, setFormData] = useState<Usuario>({} as Usuario);
 	const {setNickUsuario, setIdUsuario} = useContext(AppContext);

@@ -1,40 +1,42 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import NavBarTop from '../components/NavBarTop'
 import NavBarBottom from '../components/NavBarBottom'
 import RecetaCard from '../components/RecetaCard'
 import axios from 'axios'
+import { AppContext } from '../context/AppContextProvider'
 
 type Props = {
     navigation: any
 }
 
+type Usuario = {
+    nick: string
+}
+
 type RecetaPreview = {
-    id: string,
+    id: number,
+    descripcion: string,
+    fechadecreacion: string,
     imagen: string,
-    autor: string,
+    likes: number,
     nombre: string,
-    likes: number
+    receta: string,
+    usuario: Usuario
 }
 
 const Perfil = ({navigation}: Props) => {
-	const uri: string = "http://192.168.0.16:3000/recetas";
-    const [recetas, setRecetas] = useState<Array<RecetaPreview>>();
+	const { idUsuario } = useContext(AppContext);
+	//const uri: string = "http://172.16.141.33:8080/api/v1/recetas/usuarios/" + idUsuario;
+    const uri: string = "http://192.168.0.20:8080/api/v1/recetas/usuarios/" + idUsuario;
+	const [recetas, setRecetas] = useState<Array<RecetaPreview>>();
 
     useEffect(() => {
         async function getRecetas() {
             const response = await axios.get(uri);
             const arrRecetas: Array<RecetaPreview> = response.data;
             
-            const arrRecetasTuyas: Array<RecetaPreview> = [];
-
-            for (let i = 0; i < arrRecetas.length; i++) {
-                if (arrRecetas[i].autor == "Yo") {
-                    arrRecetasTuyas.push(arrRecetas[i]);
-                }
-            }
-            
-            setRecetas(arrRecetasTuyas);
+            setRecetas(arrRecetas);
         }
 
         getRecetas();
@@ -57,7 +59,7 @@ const Perfil = ({navigation}: Props) => {
 					<FlatList 
 						data={recetas}
 						renderItem={({item}) => 
-							<TouchableOpacity onPress={() => navigation.navigate("DetallesReceta")}><RecetaCard recetaPreview={item} /></TouchableOpacity>
+							<TouchableOpacity onPress={() => navigation.navigate("DetallesReceta", {id: item.id})}><RecetaCard recetaPreview={item} /></TouchableOpacity>
 						}
 						numColumns={2}
 					/>

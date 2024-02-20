@@ -22,15 +22,12 @@ type RecetaPreview = {
 }
 
 const AgregarReceta = ({ navigation }: Props) => {
-    const uri: string = "http://192.168.0.17:8080/api/v1/recetas";
+    //const uri: string = "http://192.168.0.17:8080/api/v1/recetas";
+    //const uri: string = "http://172.16.141.33:8080/api/v1/recetas";
+    const uri: string = "http://192.168.0.20:8080/api/v1/recetas";
     const [formData, setFormData] = useState<RecetaPreview>({} as RecetaPreview);
-    const [selectedImage, setSelectedImage] = useState<any>();
+    const [selectedImage, setSelectedImage] = useState<string>({} as string);
     const { nickUsuario, idUsuario } = useContext(AppContext);
-
-    useEffect(() => {
-
-    }, [])
-
 
     function fillFormData(value: boolean | number | string, field: keyof RecetaPreview) {
         setFormData(
@@ -83,7 +80,7 @@ const AgregarReceta = ({ navigation }: Props) => {
             } else if (response.errorMessage) {
                 console.log('Image picker error: ', response.errorMessage);
             } else {
-                let image64 = response.assets?.[0].base64 || response.assets?.[0].base64;
+                let image64: string = response.assets?.[0].base64 + "" || response.assets?.[0].base64 + "";
                 setSelectedImage(image64);
                 console.log(image64);
             }
@@ -104,7 +101,7 @@ const AgregarReceta = ({ navigation }: Props) => {
             } else if (response.errorMessage) {
                 console.log('Camera Error: ', response.errorMessage);
             } else {
-                let image64 = response.assets?.[0].base64 || response.assets?.[0].base64;
+                let image64: string = response.assets?.[0].base64 + "" || response.assets?.[0].base64 + "";
                 setSelectedImage(image64);
                 console.log(image64);
             }
