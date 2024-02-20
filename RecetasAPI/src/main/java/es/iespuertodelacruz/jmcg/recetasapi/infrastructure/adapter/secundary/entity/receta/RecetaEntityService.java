@@ -10,12 +10,16 @@ import org.springframework.stereotype.Service;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.model.Receta;
 import es.iespuertodelacruz.jmcg.recetasapi.domain.port.secundary.IRecetaDomainRepository;
 import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.primary.RecetaUpdateDTO;
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.entity.usuario.UsuarioEntity;
+import es.iespuertodelacruz.jmcg.recetasapi.infrastructure.adapter.secundary.entity.usuario.UsuarioEntityRepository;
 import jakarta.transaction.Transactional;
 
 @Service
 public class RecetaEntityService implements IRecetaDomainRepository {
 	
 	@Autowired RecetaEntityRepository peRepository;
+	
+	@Autowired UsuarioEntityRepository UsuarioRepository;
 
 	@Override
 	public Receta findById(Integer id) {
@@ -85,17 +89,20 @@ public class RecetaEntityService implements IRecetaDomainRepository {
 
 	@Transactional
 	@Override
-	public boolean aniadirFavoritos(Integer id) {
+	public boolean aniadirFavoritos(Integer id_receta, Integer id_usuario) {
 		boolean ok = false;
 		
-		if (id != null) {
-			Receta byId = findById(id);
+		if (id_receta != null && id_usuario != null) {
+			Optional<RecetaEntity> byId = peRepository.findById(id_receta);
+			Optional<UsuarioEntity> byId2 = UsuarioRepository.findById(id_usuario);
 			
-			if (byId != null) {
-				int likes = byId.getLikes();
+			if (byId.isPresent() && byId2.isPresent()) {
+				peRepository.aniadirFavoritosIntermedia(id_usuario, id_receta);
+				
+				int likes = byId.get().getLikes();
 				likes = likes + 1;
 				
-				peRepository.aniadirFavoritos(id, likes);
+				peRepository.aniadirFavoritos(id_receta, likes);
 				
 				ok = true;
 			}

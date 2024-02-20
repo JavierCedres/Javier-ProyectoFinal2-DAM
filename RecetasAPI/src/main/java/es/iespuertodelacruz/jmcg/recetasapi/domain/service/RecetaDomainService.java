@@ -47,7 +47,7 @@ public class RecetaDomainService implements IRecetaDomainService {
 	}
 
 	@Override
-	public boolean aniadirFavoritos(Integer id) {
-		return recetaRepository.aniadirFavoritos(id);
+	public boolean aniadirFavoritos(Integer id, Integer id_usuario) {
+		return recetaRepository.aniadirFavoritos(id, id_usuario);
 	}
 }

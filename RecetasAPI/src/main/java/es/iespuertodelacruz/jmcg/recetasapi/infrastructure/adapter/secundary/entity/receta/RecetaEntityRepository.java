@@ -21,4 +21,8 @@ public interface RecetaEntityRepository extends JpaRepository<RecetaEntity, Inte
 	@Modifying
 	@Query(value = "Update recetas SET likes = :likes WHERE id = :id", nativeQuery = true)
 	public void aniadirFavoritos(@Param("id") Integer id, @Param("likes") int likes);
+	
+	@Modifying
+	@Query(value = "INSERT INTO favoritos (id_usuario, id_receta) VALUES (:id_usuario, :id_receta)", nativeQuery = true)
+	public void aniadirFavoritosIntermedia(@Param("id_usuario") Integer id_usuario, @Param("id_receta") Integer id_receta);
 }
