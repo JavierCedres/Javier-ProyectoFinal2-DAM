@@ -17,4 +17,8 @@ public interface RecetaEntityRepository extends JpaRepository<RecetaEntity, Inte
 
 	@Query(value = "SELECT * FROM recetas WHERE id_autor=:id_autor", nativeQuery = true)
 	public List<RecetaEntity> findAllByAutor(@Param("id_autor") Integer id_autor);
+	
+	@Modifying
+	@Query(value = "Update recetas SET likes = :likes WHERE id = :id", nativeQuery = true)
+	public void aniadirFavoritos(@Param("id") Integer id, @Param("likes") int likes);
 }

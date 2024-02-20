@@ -82,4 +82,25 @@ public class RecetaEntityService implements IRecetaDomainRepository {
 		RecetaEntityMapper mapper = new RecetaEntityMapper();
 		return findAll.stream().map(pe -> mapper.toDomain(pe)).collect(Collectors.toList());
 	}
+
+	@Transactional
+	@Override
+	public boolean aniadirFavoritos(Integer id) {
+		boolean ok = false;
+		
+		if (id != null) {
+			Receta byId = findById(id);
+			
+			if (byId != null) {
+				int likes = byId.getLikes();
+				likes = likes + 1;
+				
+				peRepository.aniadirFavoritos(id, likes);
+				
+				ok = true;
+			}
+		}
+		
+		return ok;
+	}
 }

@@ -45,4 +45,9 @@ public class RecetaDomainService implements IRecetaDomainService {
 	public List<Receta> findAllByUsuario(Integer id) {
 		return recetaRepository.findAllByUsuario(id);
 	}
+
+	@Override
+	public boolean aniadirFavoritos(Integer id) {
+		return recetaRepository.aniadirFavoritos(id);
+	}
 }

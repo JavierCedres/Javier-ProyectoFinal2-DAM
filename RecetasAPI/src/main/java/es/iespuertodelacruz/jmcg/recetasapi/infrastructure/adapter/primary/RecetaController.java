@@ -84,4 +84,10 @@ public class RecetaController {
 		List<Receta> allByUsuario = recetaService.findAllByUsuario(id);
 		return ResponseEntity.ok(allByUsuario);
 	}
+	
+	@PostMapping("/{id}")
+	public ResponseEntity<?> aniadirFavoritos(@PathVariable Integer id){
+		boolean aniadirFavoritos = recetaService.aniadirFavoritos(id);
+		return ResponseEntity.ok(aniadirFavoritos);
+	}
 }
