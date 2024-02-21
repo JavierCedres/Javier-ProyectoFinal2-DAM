@@ -11,6 +11,7 @@ public interface IUsuarioDomainRepository {
 	Usuario findById(Integer id);
 	Usuario save(Usuario element);
 	boolean deleteById(Integer id);
+	boolean update(Integer id, Usuario ususario);
 	List<Usuario> findAll();
 	Usuario findByName(String name);
 	Usuario findByNick(String nick);

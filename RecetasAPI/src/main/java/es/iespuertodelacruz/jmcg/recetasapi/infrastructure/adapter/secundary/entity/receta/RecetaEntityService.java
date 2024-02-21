@@ -69,7 +69,7 @@ public class RecetaEntityService implements IRecetaDomainRepository {
 
 	@Transactional
 	@Override
-	public boolean update(Integer id, RecetaUpdateDTO receta) {
+	public boolean update(Integer id, Receta receta) {
 		boolean ok = false;
 		
 		if (id != null && receta != null) {

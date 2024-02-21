@@ -93,4 +93,21 @@ public class UsuarioEntityService implements IUsuarioDomainRepository {
 			return ResponseEntity.ok("No Email");
 		}
 	}
+	
+	@Override
+	public boolean update(Integer id, Usuario u) {
+		boolean ok = false;
+		
+		if (u != null) {
+			UsuarioEntity usuario = peRepository.findById(u.getId()).get();
+			usuario.setPassword(u.getPassword());
+			usuario.setNombre(u.getNombre());
+			usuario.setApellidos(u.getApellidos());
+			usuario.setImagen(u.getImagen());
+			peRepository.save(usuario);
+			ok = true;
+		}
+		
+		return ok;
+	}
 }

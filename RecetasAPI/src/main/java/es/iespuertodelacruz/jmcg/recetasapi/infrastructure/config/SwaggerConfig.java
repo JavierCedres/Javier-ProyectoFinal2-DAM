@@ -10,7 +10,7 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "Api Matriculas", version = "v1"))
+@OpenAPIDefinition(info = @Info(title = "Api Recetas", version = "v1"))
 public class SwaggerConfig {
 	@Bean
 	public OpenAPI customizeOpenAPI() {

@@ -129,4 +129,9 @@ public class UsuarioDomainService implements IUsuarioDomainService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean update(Integer id, Usuario ususario) {
+		return usuarioRepository.update(id, ususario);
+	}
 }
